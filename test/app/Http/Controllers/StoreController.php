@@ -11,6 +11,9 @@ class StoreController extends Controller
     public function showStores(){
         return Store::all();
     }
+
+
+    
     public function showStore(Request $request){
         return Store::where('name',$request->name)->first();
     }

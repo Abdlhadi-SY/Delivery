@@ -20,6 +20,7 @@ class col extends Seeder
         foreach ($stores as $store) {
             Store::create([
                 "name" => $store,
+                "location"=>"loc"
             ]);
         }
 

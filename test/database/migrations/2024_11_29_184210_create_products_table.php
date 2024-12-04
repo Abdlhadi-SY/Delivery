@@ -14,14 +14,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->foreignId('store_id')->constrained('stores')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('store_id')->constrained('stores');
             $table->string('description');
+            $table->Integer("amount")->default(20);
             $table->decimal('price');
             $table->timestamps();
         });
     }
 
-    /**
+    /**``
      * Reverse the migrations.
      */
     public function down(): void

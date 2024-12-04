@@ -17,16 +17,12 @@ Route::post("login",[UserController::class,'login']);
 Route::post("logout",[UserController::class,'logout'])->middleware('auth:sanctum');
 
 
-
-
-
-
-
-
-
-
 Route::get("showStores",[StoreController::class,'showStores']);
-Route::post("showStore",[StoreController::class,'showStore']);
+Route::get("showStore",[StoreController::class,'showStore']);
+
+
 
 Route::get("showProducts",[ProductController::class,'showProducts']);
-Route::post("showProduct",[ProductController::class,'showProduct']);
+Route::get("searchProductInDashboard",[ProductController::class,'searchProductInDashboard']);
+Route::get("searchProductInStore",[ProductController::class,"searchProductsInStore"]);
+

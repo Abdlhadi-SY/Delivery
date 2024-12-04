@@ -14,27 +14,26 @@ class UserController extends Controller
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|unique:users|Digits:10',
-            'password' => 'required | confirmed|string|min:8',
-            'image'=>'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'password' => 'required|confirmed|string|min:8',
+            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-
-        $image=$request->file('image')->store('storage');
+        if($request->image)
+            $image=$request->file('image')->store('app/public');
+        else
+            $image="";
         $user=User::create([
-            "first name"=>$request->first_name,
-            "last name"=>$request->last_name,
+            "first_name"=>$request->first_name,
+            "last_name"=>$request->last_name,
             "phone"=>$request->phone,
             "password"=>Hash::make($request->password),
             "image"=>$image
         ]);
         $token=$user->createToken("auth_token")->plainTextToken;
         return response()->json([
-            "message"=>"registered succssfully",
-            $token
+            "message"=>"registered successfully",
+            "token"=>$token
         ]);
     }
-
-
-
 
     public function login(Request $request){
         $request->validate([
@@ -52,8 +51,10 @@ class UserController extends Controller
             "user"=>$user
         ]);
     }
+
     public function logout(Request $request){
         $request->user()->currentAccessToken()->delete();
         return response()->json(["message"=>"Logout success"]);
     }
+
 }
