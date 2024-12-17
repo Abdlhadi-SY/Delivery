@@ -15,18 +15,12 @@ class UserController extends Controller
             'last_name' => 'required|string|max:255',
             'phone' => 'required|unique:users|Digits:10',
             'password' => 'required|confirmed|string|min:8',
-            'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         ]);
-        if($request->image)
-            $image=$request->file('image')->store('app/public');
-        else
-            $image="";
         $user=User::create([
             "first_name"=>$request->first_name,
             "last_name"=>$request->last_name,
             "phone"=>$request->phone,
             "password"=>Hash::make($request->password),
-            "image"=>$image
         ]);
         $token=$user->createToken("auth_token")->plainTextToken;
         return response()->json([
@@ -47,8 +41,7 @@ class UserController extends Controller
         $token=$user->createToken("auth_token")->plainTextToken;
         return response()->json([
             "message"=>"Login success",
-            "token"=>$token,
-            "user"=>$user
+            "token"=>$token
         ]);
     }
 

@@ -12,12 +12,11 @@ class ProductController extends Controller
     public function showProducts(Request $request){
         return Store::where('name',$request->name)->first()->products;
     }
-
+    
     public function showproduct(Request $request){
         return Product::where("id",$request->id)->first();
     }
 
-    
     public function searchProductInDashboard(Request $request){
         $listofstores=[];
         $Products=Product::all();
@@ -32,7 +31,6 @@ class ProductController extends Controller
 
         return $listofstores;
     }
-
 
     public function searchProductInStore(Request $request){
         $Products=Store::where('name',$request->nameStore)->first()->products;

@@ -23,6 +23,7 @@ class User extends Authenticatable
         'last_name',
         'phone',
         'image',
+        'status',
         'password'
     ];
 
@@ -47,5 +48,9 @@ class User extends Authenticatable
 //            'email_verified_at' => 'datetime',
 //            'password' => 'hashed',
         ];
+    }
+
+    public function products(){
+        return $this->belongsToMany(Product::class,"Purchasiners");
     }
 }

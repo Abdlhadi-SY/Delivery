@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string("image");
+            $table->string("status")->default("user");
             $table->rememberToken();
             $table->timestamps();
         });
