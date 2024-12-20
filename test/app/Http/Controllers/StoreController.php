@@ -19,7 +19,7 @@ class StoreController extends Controller
     }
 
     public function showstore(Request $request){
-        return Store::find($request->id);
+        return Store::find($request->id)->products;
     }
 
 }

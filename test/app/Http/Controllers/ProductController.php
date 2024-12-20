@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-
-    public function showProducts(Request $request){
-        return Store::where('name',$request->name)->first()->products;
-    }
-    
     public function showproduct(Request $request){
         return Product::where("id",$request->id)->first();
     }
@@ -33,15 +28,13 @@ class ProductController extends Controller
     }
 
     public function searchProductInStore(Request $request){
-        $Products=Store::where('name',$request->nameStore)->first()->products;
+        $Products=Store::where('name',$request->storeName)->first()->products;
         foreach($Products as $product){
-            if($product->name==$request->nameProduct){
+            if($product->name==$request->productName){
                 return $product;
             }
         }
         return response()->json(["message"=>"Product is not found"]);
     }
-
-
 
 }

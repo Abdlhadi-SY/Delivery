@@ -21,8 +21,8 @@ class ProfileController extends Controller
             'last_name' => 'required|string|max:255',
             'image'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
         ]);
-        if($request->image)
-            $image=$request->file('image')->store('app/public');
+        if($request->hasfile("image"))
+            $image=$request->file('image')->store('public');
         else
             $image="";
         Auth::user()->update([
@@ -30,5 +30,6 @@ class ProfileController extends Controller
             "last_name"=>$request->last_name,
             "image"=>$image
         ]);
+        return response()->json(['message' => 'Profile updated successfully'], 200);
     }
 }

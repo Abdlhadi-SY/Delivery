@@ -10,17 +10,18 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     public function register(Request $request){
-        $request->validate([
+            $request->validate([
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
             'phone' => 'required|unique:users|Digits:10',
             'password' => 'required|confirmed|string|min:8',
-        ]);
+            ]);
         $user=User::create([
             "first_name"=>$request->first_name,
             "last_name"=>$request->last_name,
             "phone"=>$request->phone,
             "password"=>Hash::make($request->password),
+            "image"=>""
         ]);
         $token=$user->createToken("auth_token")->plainTextToken;
         return response()->json([
